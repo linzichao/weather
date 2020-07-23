@@ -1,0 +1,19 @@
+{
+  "name": "weather",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "http": "0.0.1-security",
+    "mongodb": "^2.2.33",
+    "request": "^2.88.2",
+    "url": "^0.11.0",
+    "util": "^0.12.3"
+  }
+}
