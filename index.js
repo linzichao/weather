@@ -34,7 +34,7 @@ http.createServer((req, res) => {
                             天氣描述: weather_detail[20].elementValue.value == "-99" ? "未觀測" : weather_detail[20].elementValue.value}       
                         weather_data.push(weather_single);
                     });
-                    res.writeHead(200, {'Content-Type': 'application/json'});
+                    res.writeHead(200, {'Content-Type': 'application/json; charset=utf-8'});
                     res.write(JSON.stringify(weather_data));
                     res.end();
                 });
