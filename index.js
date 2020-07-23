@@ -19,15 +19,18 @@ http.createServer((req, res) => {
             db.collection('weatherInfo', (err, collection) => {
                 collection.find({}).toArray((err, items) => {
                     if (err) throw err;
-                    weather_data = [];
+                    weather_data = [{單位: {現在溫度: "攝氏", 本日最高溫: "攝氏", 本日最低溫: "攝氏", 現在風速: "公尺/秒", 日累積雨量: "毫米"}}];
                     items.forEach(element => {
                         weather_detail = JSON.parse(element.weatherElement);
                         loc = JSON.parse(element.location);
                         locName = loc[0].parameterValue + loc[2].parameterValue;
 
-                        weather_single = {位置: locName, 觀測時間: element.obsTime, 溫度: weather_detail[3].elementValue.value, 
+                        weather_single = {位置: locName, 觀測時間: element.obsTime, 
+                            現在溫度: weather_detail[3].elementValue.value == "-99" ? "未觀測" : weather_detail[3].elementValue.value, 
                             本日最高溫: weather_detail[14].elementValue.value == "-99" ? "未觀測" : weather_detail[14].elementValue.value,
                             本日最低溫: weather_detail[16].elementValue.value == "-99" ? "未觀測" : weather_detail[16].elementValue.value,
+                            現在風速: weather_detail[2].elementValue.value == "-99" ? "未觀測" : weather_detail[2].elementValue.value,
+                            日累積雨量: weather_detail[6].elementValue.value == "-99" ? "未觀測" : weather_detail[6].elementValue.value,
                             天氣描述: weather_detail[20].elementValue.value == "-99" ? "未觀測" : weather_detail[20].elementValue.value}       
                         weather_data.push(weather_single);
                     });
@@ -64,7 +67,7 @@ http.createServer((req, res) => {
                 mongoConnect(data);
             });
         });
-    }, 3600000);
+    }, 3600000); //Time
 }).listen(3000);
 console.log('Http server is running on port 3000!')
 
